@@ -63,3 +63,12 @@ $$Precision = \frac{TP}{TP + FP} = \frac{\text{Correctly Predicted Positives}}{\
 Precision is a useful metric in cases where **False Positives (FP)** are a higher concern than False Negatives. It is about **quality and reliability**. High precision means that when the model says Positive (it is broken). 
 
 In the context of the platform for system health checks, Precision is critical for managing maintenance costs. The AI monitors a system and predicts a critical failure (Positive). The cost of a false positive when the model triggers a fire alarm. An engineer is sent to the edge device, and production is potentially paused for a check, only to find the system was actually healthy. This wastes specialized labor hours and decreases operational efficiency. 
+
+## Performance / Evaluation Metrics: Recall
+
+Recall is a measure of actual observations which are predicted correctly. It shows how many observations of the positive class were actually identified as positive. 
+
+$$Recall = \frac{TP}{TP + FN} = \frac{\text{Correctly Predicted Positives}}{\text{Total Actual Positives}}$$
+
+It is also known as Sensitivity. Recall is a valid choice of evaluation metric when the goal is to capture as **many positives as possible**. Recall is important when minimizing False Negatives is more critical than minimizing False Positives.
+
