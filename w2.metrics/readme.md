@@ -72,3 +72,12 @@ $$Recall = \frac{TP}{TP + FN} = \frac{\text{Correctly Predicted Positives}}{\tex
 
 It is also known as Sensitivity. Recall is a valid choice of evaluation metric when the goal is to capture as **many positives as possible**. Recall is important when minimizing False Negatives is more critical than minimizing False Positives.
 
+For example, missing a critical hardware failure (False Negative) results in missed opportunities or catastrophic equipment damage. 
+
+## Performance / Evaluation Metrics: F1-Score
+
+The F1-score is the harmonic mean of precision and recall, and provides a balanced measure that combines both metrics. It is a good choice when both precision and recall are equally important, and it helps in finding a trade-off between precision and recall. F1-score is often used when there is an uneven class distribution or **class imbalance**, and it provides a single value that summarizes the model's performance.
+
+If our precision is low, the F1 is low and if the recall is low, again our F1 score is low. A higher F1-score indicates a better balance between precision and recall. A perfect F1-score of 1.0 is rarely achievable in real-world scenarios. 
+
+$$F1 score = 2 * \frac{Recall * Precision}{Recall + Precision}$$
