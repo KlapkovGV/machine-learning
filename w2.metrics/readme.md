@@ -80,4 +80,67 @@ The F1-score is the harmonic mean of precision and recall, and provides a balanc
 
 If our precision is low, the F1 is low and if the recall is low, again our F1 score is low. A higher F1-score indicates a better balance between precision and recall. A perfect F1-score of 1.0 is rarely achievable in real-world scenarios. 
 
-$$F1 score = 2 * \frac{Recall * Precision}{Recall + Precision}$$
+$$F1 score = \frac{2 * TP}{2 * TP + FP + FN} = 2 * \frac{Recall * Precision}{Recall + Precision}$$
+
+__
+Use:
+- **accuracy** for balanced datasets;
+- **precision** when minimizing False Positives is critical;
+- **recall** when minimizing False Negatives is crucial;
+- **F1-score** when both False Positives and False Negatives are equally important, especially in imbalanced datasets;
+
+The ideal value for Accuracy, Precision, Recall, and F1-score would be 1.0 or near to 1.
+
+Once the model is trained, it is crucial to understand how well it performs. We can do this by generating a confusion matrix.
+
+```python
+import pandas as pd, numpy as np, matplotlob.pyplot as plt, seaborn as sns
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, precision_score, recall_score, f1_score
+
+y_pred = df["predicted_label"]
+y_true = df["true_label"]
+
+cm = confusion_matrix(y_true, y_pred)
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, cmap="Blues", fmt="d", cbar=False)
+plt.xlabel('Predicted Labels')
+plt.ylabel('True Labels')
+plt.title('Confusion Matrix')
+plt.show()
+```
+
+Here are the evaluation metrics.
+```python
+accuracy = accuracy_score(y_true, y_pred)
+
+precision = precision_score(y_true, y_pred, average='weighted')
+
+revall = recall_score(y_true, y_pred, average='weighred')
+
+f1 = f1_score(y_true, y_pred, average='weighted')
+
+report = classification_report(y_true, y_pred)
+```
+
+For multi-class classification, evaluating the model across all categories is essential. 
+
+```python
+cm = confusion_matrix(y_true, y_pred)
+
+class_labels = ['Class 1', 'Class 2', 'Class 3', 'Class 4']
+
+fig, ax = plt.subplots(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', cbar=False, ax=ax)
+
+ax.set_xlabel('Predicted Label', fontsize=12)
+ax.set_ylabel('True Label', fontsize=12)
+
+ax.set_xticklabels(class_labels, rotation=45, ha='right', fontsize=10)
+ax.set_yticklabels(class_labels, rotation=0, ha='right', fontsize=10)
+
+ax.set_title('Confusion Matrix', fontsize=14)
+
+plt.tight_layout()
+plt.show()
+```
