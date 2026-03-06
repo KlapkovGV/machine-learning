@@ -60,9 +60,9 @@ Precision measures the proportion of correctly predicted positive samples out of
 
 $$Precision = \frac{TP}{TP + FP} = \frac{\text{Correctly Predicted Positives}}{\text{Total Predicted Positives}}$$
 
-Precision is a useful metric in cases where **False Positives (FP)** are a higher concern than False Negatives. It is about **quality and reliability**. High precision means that when the model says Positive (it is broken). 
+Precision is a useful metric in cases where **False Positives (FP)** are a higher concern than False Negatives. It is about **quality and reliability**. High precision means that when the model says Positive, it is actually broken. 
 
-In the context of the platform for system health checks, Precision is critical for managing maintenance costs. The AI monitors a system and predicts a critical failure (Positive). The cost of a false positive when the model triggers a fire alarm. An engineer is sent to the edge device, and production is potentially paused for a check, only to find the system was actually healthy. This wastes specialized labor hours and decreases operational efficiency. 
+In the context of the platform for system health checks, Precision is critical for managing maintenance costs. The AI monitors a system and predicts a critical failure (Positive). The cost of a false positive is like the cost when the model triggers a fire alarm. An engineer is sent to the edge device, and production is potentially paused for a check, only to find the system was actually healthy. This wastes specialized labor hours and decreases operational efficiency. 
 
 ## Performance / Evaluation Metrics: Recall
 
@@ -145,11 +145,11 @@ plt.tight_layout()
 plt.show()
 ```
 
-## Undersatnding the ROC-AUC Curve
+## Understanding the ROC-AUC Curve
 
 ROC stands for Receiver Operating Characteristic. The ROC curve visualizes the performance of a binary classifier across all possible thresholds. The curve tells us how well the model can distinguish between two classes (e.g., Disease vs. No Disease). A better model can accurately distinguish between the two, whereas a poor model will have difficulty distinguishing between them.
 
-Let's assune we have a model which predicts whether the patient has a particular disease or no. Here, the red distribution represents all the patients who do not have the disease and the green distribution represents all the patients who have the disease. 
+Let's assume we have a model which predicts whether the patient has a particular disease or not. Here, the red distribution represents all the patients who do not have the disease and the green distribution represents all the patients who have the disease.
 
 <img width="320" height="216" alt="image" src="https://github.com/user-attachments/assets/8f9f1d62-d82e-449f-8dff-51dd093a4f03" />
 
@@ -157,14 +157,35 @@ Now we got to pick a value where we need to set the cut off i.e. a threshold val
 
 <img width="320" height="214" alt="image" src="https://github.com/user-attachments/assets/9961e9bb-679f-4467-9e50-d7d252bff8de" />
 
-This images illustrates how a machine learning model makes decisions and how we measure its accuracy. The graph on the right shows an S-curve, which is the result of a logistic regression model. This curve takes our data and turns it into a probability between 0 and 1. The blue points on the curve represnt specific predictions, such as a 30% or 80% probability that an event will happen. 
+This image illustrates how a machine learning model makes decisions and how we measure its accuracy. The graph on the right shows an S-curve, which is the result of a logistic regression model. This curve takes our data and turns it into a probability between 0 and 1. The blue points on the curve represent specific predictions, such as a 30% or 80% probability that an event will happen. 
 
-To turn these probabilities into a final yes or no answer, the model uses a threshold value, which is usually set at 0.5. Any point above this threshold is classified as a positive result, while any point below it is classified as a negative result. Once these classification are made, we compare them to the actual truth to create a confusion matrix. 
+To turn these probabilities into a final yes or no answer, the model uses a threshold value, which is usually set at 0.5. Any point above this threshold is classified as a positive result, while any point below it is classified as a negative result. Once these classifications are made, we compare them to the actual truth to create a confusion matrix. 
 
-The confusion matrix is a table that tracks four specific outcomes: TP and TN, which represent correct predictions, and FP and FN, which represent errors. Understanding these four elements is the first step toward building an ROC-AUC curve, because that curve is created by calculating how these error rates changes as you move the threshold line higher or lower. Together, these tools allow us to evaluate the efficiency and precision of classification model. 
+The confusion matrix is a table that tracks four specific outcomes: TP and TN, which represent correct predictions, and FP and FN, which represent errors. Understanding these four elements is the first step toward building an ROC-AUC curve, because that curve is created by calculating how these error rates change as you move the threshold line higher or lower. Together, these tools allow us to evaluate the efficiency and precision of a classification model. 
 
 The concept of a trade-off means that when we move the threshold line on the graph, we improve one type of accuracy while making another worse. If we move the dotted threshold line downward, we are making the model less strict. This results in more data points being labeled as positive, which increases the model's sensitivity because we are less likely to miss any actual positive cases.
 
-However, because the model is now less picky, it will also start incorrectly labeling negative cases as positive, which causes the specificity to drop. Using the example of a spam filter mentioned in the text, lowering the threshold ensures we catch every single piece of junk mail, but ut also increases the risk that  an important personal email will be mistakenly marked as spam. Ultimately, adjusting this threshold is a balancing act where we must decide which type of error is more dangerous for our specific situation. 
+However, because the model is now less picky, it will also start incorrectly labeling negative cases as positive, which causes the specificity to drop. Using the example of a spam filter mentioned in the text, lowering the threshold ensures we catch every single piece of junk mail, but it also increases the risk that an important personal email will be mistakenly marked as spam. Ultimately, adjusting this threshold is a balancing act where we must decide which type of error is more dangerous for our specific situation. 
 
-**True Positive Rate** and the **False Positive Rate** are the specific metrics used to plot the final ROC curve. The True Positive Rate tells us how good the model is at finding the actual positive cases. It is calculated by taking the number of correct positive predictions and dividing it by the total number of actual positive cases that exist in the data. Essentially, it measures the model's ability to catch the target without letting them sli[ through as false negatives. 
+**True Positive Rate** and the **False Positive Rate** are the specific metrics used to plot the final ROC curve. The True Positive Rate tells us how good the model is at finding the actual positive cases. It is calculated by taking the number of correct positive predictions and dividing it by the total number of actual positive cases that exist in the data. Essentially, it measures the model's ability to catch the target without letting them slip through as false negatives. 
+
+- True Positive Rate defined as TPR = TP / (TP + FN).
+- False Positive Rate (FPR) defined as FPR = FP / (FP + TN). FPR measures the proportion of actual negatives mistakenly identified as positives.
+
+The relationship between TPR and FPR reveals a model's behavior across different thresholds. A lower threshold classifies more instances as positive, leading to a higher TPR, but also a higher FPR as more negatives are mistakenly identified. A higher threshold becomes stricter, classifying fewer instances as positive. This results in a lower TPR and a lower FPR.
+
+<img width="250" height="250" alt="image" src="https://github.com/user-attachments/assets/4062fa15-824b-4401-a232-1353d296e909" />
+
+The ROC curve shows how TPR and FPR change as we adjust the threshold. Even though both TPR and FPR can rise or fall together, the key is in how fast or slow they change compared to each other. This difference in their rates is the trade-off. 
+
+The ROC curve is a graph that shows how well a classification model distinguishes between two classes at various thresholds. It lets us visualize the model's performance at all possible thresholds, not just a single one. 
+
+To create a ROC curve, we first need to understand that a classification model does not simply guess spam or not spam. Instead, it calculates a probability score for each item. Since this score is a number between 0 and 1, we must choose a threshold to decide the final category. 
+
+As we test these different thresholds, we track two key metrics: the True Positive Rate and False Positive Rate. The TPR tells us what percentage of actual spam emails we correctly identified, while the FPR tells us what percentage of legitimate emails we mistakenly flagged as spam. Finally, we plot these results on a graph with the FPR on the x-axis and the TPR on the y-axis. By connecting the points for every threshold, we create the ROC curve. A curve that arches high toward the top-left corner indicates a better model, as it achieves a high true positive rate while keeping false alarms to a minimum. 
+
+### AUC
+
+AUC stands for Area Under the Curve. It summarizes a model's performance into a single numerical value between 0 and 1. While the ROC curve is a visual graph, the AUC score provides a concrete way to measure how well a classifier distinguishes between classes, where a higher score indicates better performance. This is particularly useful for comparing multiple models quickly without needing to analyze their curves individually. Additionally, AUC is more reliable than simple accuracy when working with imbalanced datasets. 
+
+Interpreting AUC values is straightforward: a score of 0.5 represents a model that performs no better than random guessing, similar to a coin toss. As the value increases toward 1, the model becomes more effective at distinguishing between positive and negative classes. While an AUC of 1 signifies a perfect, flawless classifier, it is a theoretical ideal that is rarely achieved in real-world scenarios.
