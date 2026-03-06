@@ -150,3 +150,15 @@ plt.show()
 ROC stands for Receiver Operating Characteristic. The ROC curve visualizes the performance of a binary classifier across all possible thresholds. The curve tells us how well the model can distinguish between two classes (e.g., Disease vs. No Disease). A better model can accurately distinguish between the two, whereas a poor model will have difficulty distinguishing between them.
 
 Let's assune we have a model which predicts whether the patient has a particular disease or no. Here, the red distribution represents all the patients who do not have the disease and the green distribution represents all the patients who have the disease. 
+
+<img width="320" height="216" alt="image" src="https://github.com/user-attachments/assets/8f9f1d62-d82e-449f-8dff-51dd093a4f03" />
+
+Now we got to pick a value where we need to set the cut off i.e. a threshold value, abouve which we will predict everyone as positive and below which will predict as negative. We will set the threshold at 0.5.
+
+<img width="320" height="214" alt="image" src="https://github.com/user-attachments/assets/9961e9bb-679f-4467-9e50-d7d252bff8de" />
+
+This images illustrates how a machine learning model makes decisions and how we measure its accuracy. The graph on the right shows an S-curve, which is the result of a logistic regression model. This curve takes our data and turns it into a probability between 0 and 1. The blue points on the curve represnt specific predictions, such as a 30% or 80% probability that an event will happen. 
+
+To turn these probabilities into a final yes or no answer, the model uses a threshold value, which is usually set at 0.5. Any point above this threshold is classified as a positive result, while any point below it is classified as a negative result. Once these classification are made, we compare them to the actual truth to create a confusion matrix. 
+
+The confusion matrix is a table that tracks four specific outcomes: TP and TN, which represent correct predictions, and FP and FN, which represent errors. Understanding these four elements is the first step toward building an ROC-AUC curve, because that curve is created by calculating how these error rates changes as you move the threshold line higher or lower. Together, these tools allow us to evaluate the efficiency and precision of classification model. 
