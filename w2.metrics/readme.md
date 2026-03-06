@@ -144,3 +144,9 @@ ax.set_title('Confusion Matrix', fontsize=14)
 plt.tight_layout()
 plt.show()
 ```
+
+## Undersatnding the ROC-AUC Curve
+
+ROC stands for Receiver Operating Characteristic. The ROC curve visualizes the performance of a binary classifier across all possible thresholds. The curve tells us how well the model can distinguish between two classes (e.g., Disease vs. No Disease). A better model can accurately distinguish between the two, whereas a poor model will have difficulty distinguishing between them.
+
+Let's assune we have a model which predicts whether the patient has a particular disease or no. Here, the red distribution represents all the patients who do not have the disease and the green distribution represents all the patients who have the disease. 
