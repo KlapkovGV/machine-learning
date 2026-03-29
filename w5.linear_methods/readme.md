@@ -147,3 +147,17 @@ The logic:
 2. Solve the resulting quadratic equation to find the eigenvalues (λ);
 3. Plug each λ back into the system `(A - λI)*x = 0` to find the corresponding eigenvectors (x).
 
+### PCA Workflow
+
+The implementation of PCA as a feature extraction method consists of a structured five-step sequence. The process begins with **Standardization**, where the dataset is scaled by first substracting the mean value (standardized values have a zero mean), then it dividing the result by the standard deviation (standardized values have a standard deviation equal to 1). Standardization is followed by the **Covariance Matrix Computation**, which captures the relationships between multiple variables in a dataset. 
+
+Once the covariance matrix is established, the next phase involves **computing the eigenvectors and eigenvalues** of that matrix. This step is critical for identifying the principal components, which are directions in the feature space that represent the most variance. These components are typically ranked by their eigenvalues:
+```math
+\lambda_1 > \lambda_2 > \lambda_3 > \dots > \lambda_n
+```
+
+A **Feature Vector** is then constructed by selecting the eigenvectors corresponding to the largest eigenvalues. In the final step, the algorithm **recast the data along the principal component axes**. Geometrically, this transforms the original data, which may have been distributed across arbitrary feature axes, into a new coordinate system. 
+
+<img width="1390" height="590" alt="image" src="https://github.com/user-attachments/assets/0d7dffe0-529b-439f-b377-e55c759ea3b1" />
+
+A two-class dataset transformed through the PCA pipeline: Regarding the code implementation, the process begins with standardization using the `StandardScaler` component from the scikit-learn library. Subsequently, the **covariance matrix** is computed, and **the eigenvectors and eigenvalues** are derived using the `numpy.linalg.eig` function. To ensure that the most significant directions of variance are prioritized, the eigenvectors are sorted in descending order based on their corresponding eigenvalues. The final stage of the workflow involves **projecting the standardized data** onto the new principal component space using a **dot product** between the standardized matrix and the sorted eigenvector matrix
